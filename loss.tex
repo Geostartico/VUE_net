@@ -1,0 +1,14 @@
+The goal of the network is to match the probability distribution of the labels grid, for this task
+the best loss to use is the cross-entropy loss. However, the biggest problem of the loss for this 
+task is the fact that the voxelgrid tends to be very sparse. The initial way we decided to solve
+this is to set to the empty class the empty voxels of the prediction, as this is known from the
+input grid. This proved to be problematic, as the the backpropagation would be made only on some of
+the output cells, as some would be manually set, causing the network not to converge correctly.
+The approach fell on simple crossentropy. We decided also to use weights in the crossentropy, as
+provided by the pytorch api, inversely proportional to the frequency of a certain class, as to
+compensate for the very skewed statistics of the voxel grid.\par
+For the validation we decided to compute the scored based on the correctly classified voxels, so 
+comparing the class with the highest probability. This was done only on non-empty voxels, as we
+want to know how many of these are correct, knowing which ones are empty. In the notbook it can
+be seen both a straight forward implementation of such loss and also one that exploits tensor
+operations in order to compute this score.
