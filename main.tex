@@ -38,7 +38,8 @@
 /TemplateVersion (2024.1)
 }
 \setcounter{secnumdepth}{0} %May be changed to 1 or 2 if section numbers are desired.
-\title{Urban segmentation through deep learning and voxelization of pointclouds}
+\font\myfont=cmr12 at 30pt
+\title{{\myfont VUE\,-\,net}}
 \author{
     Artico Giovanni\equalcontrib,
     Giacomin Marco\equalcontrib
@@ -58,35 +59,31 @@
 
 \maketitle
 
-\section{Background}
-\input{background.tex}
-\section{Data Transformation}
-\input{data_transformation.tex}
-\section{Is this loss?}
-\input{loss.tex}
-% \begin{abstract}
-% \end{abstract}
+% \section{Background}
+% \input{old/background.tex}
+% \section{Data Transformation}
+% \input{old/data_transformation.tex}
+% \section{Is this loss?}
+% \input{old/loss.tex}
 
-%\section{Introduction}
-%\input{intro.tex}
-%
-%\section{Abbreviations}
-%\input{abbreviations.tex}
-%
-%\section{GTR Segmentation}
-%\input{glioseg.tex}
-%
-%\section{Intra-tumoral segmentation and sub-clone risk assessment}
-%\input{intra_tumoral.tex}
-%
-%\section{Genomic Clustering}
-%\input{clustering_genome.tex}
-%
-%\section{Future work}
-%\input{future_work.tex}
-%
-%\section{Conclusions}
-%\input{conclusions.tex}
+\section{Task}
+\input{task.tex}
+
+\section{Dataset}
+\input{data.tex}
+
+\section{Model}
+\input{model.tex}
+
+\section{Training}
+\input{training.tex}
+
+\section{Performance}
+\input{performance.tex}
+
+\section{Results}
+\input{results.tex}
+
 \nocite{*}
 \newpage
 \bibliography{aaai24}
