@@ -3,14 +3,15 @@ The data is in the form of pointclouds. We used the provided
 functions in the colab notebook on PointNet for reading and sampling the pointclouds. It must be noted that these function combined
 do not read the full pointcloud but return a random subset of points of fixed size.\par
 In order to transform the data we used the Open3D library api \cite{zhou2018open3d}. 
-Although we decided not to use these sets of points as input for our model. since how PointNet showedAs shown by PointNet,
-a model based on pointclouds in particularly heavy and therefore unusable for real-time applications.
+Although we decided not to use these sets of points as input for our model. As shown by PointNet,
+a model based on pointclouds is particularly heavy and therefore unusable for real-time applications.
 We instead decided to perform voxelization on the pointclouds and therefore our model's input is a grid of voxels.
+A voxel is a volumetric unit of space, so it can be considered as a pixel in 3D space.
 We decided to use voxelgrids of size $32^3$ to have simple calculations (as it is a power of $2$) and at the same time a manageable number of voxeles to process.
-The voxels are encoded into a $32\times32\times32\times1$ tensor, where the element $(X,Y,Z,0)$ is set to $1$ iff there's at least a point in the pointcloud that corresponds to the voxel with coordinates $(X,Y,Z)$, 0 otherwise.\par
-For the labels encoding we decided to use $32\times32\times32\times\#classes$ tensors which were generated as follows.
+The voxels are encoded into a $(32\times32\times32\times1)$ tensor, where the element $(X,Y,Z,0)$ is set to $1$ iff there's at least a point in the pointcloud that corresponds to the voxel with coordinates $(X,Y,Z)$, 0 otherwise.\par
+For the labels encoding we decided to use $(32\times32\times32\times\#classes)$ tensors which were generated as follows.
 For each point in the pointcloud, the value of the tensor 
-$labels(X,Y,Z,:)$ is updated as $labels(X,Y,Z,:)+=l$, where $(X,Y,Z)$ are the coordinates of the corresponding voxel and $l$ is the one-hot encoded version
+$labels(X,Y,Z,:)$ is updated as $labels(X,Y,Z,:)\textrm{+=}l$, where $(X,Y,Z)$ are the coordinates of the corresponding voxel and $l$ is the one-hot encoded version
 of the point's label.
 After iterating over all points' labels, the obtained tensor is normalized along the appropriate dimension in order to obtain a probability distribution over the possibile classes. 
 As for the empty voxel, they were assigned to a an additional (w.r.t. SemanticKITTI) fictitious class with total probability to 
