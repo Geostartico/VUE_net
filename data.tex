@@ -1,13 +1,13 @@
-To build and train the network we used 1000 samples taken from the SemanticKITTI dataset \cite{behley2019iccv}.
+To build and train our network we used 1000 samples taken from the SemanticKITTI dataset \cite{behley2019iccv}.
 The data is in the form of pointclouds. We used the provided
 functions in the colab notebook on PointNet for reading and sampling the pointclouds. It must be noted that these function combined
 do not read the full pointcloud but return a random subset of points of fixed size.\par
-In order to transform the data we used the Open3D library api \cite{zhou2018open3d}. 
-Although we decided not to use these sets of points as input for our model. As shown by PointNet,
+Although, we decided not to use these sets of points as input for our model. As shown by PointNet,
 a model based on pointclouds is particularly heavy and therefore unusable for real-time applications.
 We instead decided to perform voxelization on the pointclouds and therefore our model's input is a grid of voxels.
 A voxel is a volumetric unit of space, so it can be considered as a pixel in 3D space.
-We decided to use voxelgrids of size $32^3$ to have simple calculations (as it is a power of $2$) and at the same time a manageable number of voxeles to process.
+In order to transform the data we used the Open3D library api \cite{zhou2018open3d}. 
+We decided to use voxelgrids of size $32^3$ to have simple calculations, as it is a power of $2$, and at the same time a manageable number of voxeles to process.
 The voxels are encoded into a $(32\times32\times32\times1)$ tensor, where the element $(X,Y,Z,0)$ is set to $1$ iff there's at least a point in the pointcloud that corresponds to the voxel with coordinates $(X,Y,Z)$, 0 otherwise.\par
 For the labels encoding we decided to use $(32\times32\times32\times\#classes)$ tensors which were generated as follows.
 For each point in the pointcloud, the value of the tensor 
@@ -16,11 +16,11 @@ of the point's label.
 After iterating over all points' labels, the obtained tensor is normalized along the appropriate dimension in order to obtain a probability distribution over the possibile classes. 
 As for the empty voxel, they were assigned to a an additional (w.r.t. SemanticKITTI) fictitious class with total probability to 
 allow our model to predict a voxel as empty.
-This encoding was initially performed ar run-time but it introduced a considerable over-head in the prediction time since
+This encoding was initially performed at run-time but it introduced a considerable over-head in the prediction time since
 it is a particularly time consuming process. Our tests showed that it takes about $1s$ in order to convert the pointcloud
 using the adopted open3D function, and $2s$ at most to convert the labels. This amount of time
 is also not ideal to have at training time, as it takes most of the training round. 
-To solve this issue we resorted to creating a new version of the dataset by computing and saving the voxels, so that to access the voxelized samples
+To solve this issue we resorted to creating a new version of the dataset by computing and saving the voxelgrids, so that to access the voxelized samples
 at training time, only their loading is needed. This also allowed to have a stable dataset, since the sampling of the pointclouds
-is not deterministic. Although in real-time applications this process must be performed on-the-fly. Therefore, to assure a fast response,
+is not deterministic. Although, in real-time applications this process must be performed on-the-fly and so, to assure a fast response,
 the transformation should be performed at a lower level with respect to our implementation.
