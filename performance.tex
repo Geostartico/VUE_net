@@ -1,0 +1,8 @@
+For the test phase the approach taken was to compute the probability of misclassifying 
+a point in a pointcloud of the test set, which samples were not voxelized.
+To compute such value, a backprojection function was needed in order to obtain the point labels
+from the predicted voxel labels. The function we implemented directly assigns to each point
+the label of the voxel that contains it. The obtained value is equal to 0.308, which means that
+\textit{VUE-net} correcly labels 69.2\% of the pointcloud points in the test set.
+\\ \\
+TO BE ADDED: confusion matrix, prediction time, ecc.

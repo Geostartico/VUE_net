@@ -1,3 +1,22 @@
+\begin{figure*}[ht]
+    \centering
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/true.png}
+        \caption{True labels}
+        \label{fig:true}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/pred.png}
+        \caption{Predicted labels}
+        \label{fig:pred}
+    \end{subfigure}
+    \caption{True and predicted labels for pointcloud 55}
+    \label{fig:visual}
+\end{figure*}
+
 The dataset made of 1000 sample was split into subsets of 750, 150 and 100 samples that correspond respectivly
 to training, validation and test sets. In addition, samples from the training set were shuffled before being used.
 The training phase was set such that for a determined number of epochs, the samples from the proper
@@ -17,8 +36,10 @@ This lead us to our final choice for the loss function, Dice Loss.
 This function allowed for fairly good model performance after training. This result is caused by the fact that Dice Loss considers 
 the intersection over the union (IoU) of the predicted and true positive regions, which makes it particularly sensible to small 
 and underrepresented classes.
-After each epoch, validation was performed to assess the current model performance and save it only if 
-it was the best one seen yet. 
+After each epoch, validation was performed through the "ensamble" version of the model, introduced in the end of the last section,
+to assess the current model performance and save it only if it was the best one seen yet. 
 As for the Validation Loss we decided to use the probability of a voxel of a sample in the validation set being misclassified by the model.
 This value is computed by a function that confronts each true and computed label tensors in their one-hot encoded version 
 (argmax set to 1, others to 0) and returns the normalized count of pairs of different tensors.
+By training our network for 50 epochs, we achieved a validation loss value of 0.280, which
+means that it correcly labels 72.0\% of the samples voxels in the validation set.

@@ -1,6 +1,6 @@
 To build and train our network we used 1000 samples taken from the SemanticKITTI dataset \cite{behley2019iccv}.
-The data is in the form of pointclouds. We used the provided
-functions in the colab notebook on PointNet for reading and sampling the pointclouds. It must be noted that these function combined
+The data is in the form of pointclouds. We used the
+functions provided by the colab notebook on PointNet for reading and sampling the pointclouds. It must be noted that these function combined
 do not read the full pointcloud but return a random subset of points of fixed size.\par
 Although, we decided not to use these sets of points as input for our model. As shown by PointNet,
 a model based on pointclouds is particularly heavy and therefore unusable for real-time applications.
