@@ -36,3 +36,8 @@ In the end a multi-layer perceptron (\textit{MLP}), made of two fully connected 
 to shrink the features dimensions to the number of classes (26) combined with a SoftMax layer that allows
 to have the desired probability distribution.
 Additionaly, batch normalization layers were added between every subsequent convolutions.
+
+To obtain more accurate predictions, we created an additional model that exploits the previous
+one robustness to input rotations which, as it will be explained later, is embedded at training time.
+This network feeds the original model with the four possibile rotated versions of the given sample, 
+aligns the received labels and returns their mean values.

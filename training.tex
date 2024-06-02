@@ -1,0 +1,24 @@
+The dataset made of 1000 sample was split into subsets of 750, 150 and 100 samples that correspond respectivly
+to training, validation and test sets. In addition, samples from the training set were shuffled before being used.
+The training phase was set such that for a determined number of epochs, the samples from the proper
+set were loaded in batches of 10, rotated by 90 degrees around the z-axis by a random number
+of times in the range 0-3 (to embedd robustness to such rotations in our model) and then given as 
+input to the model which performed the forward and backward propagation operations.
+For this last operation, a loss function is needed.
+We initially opted for the CrossEntropy loss, but we soon encountered poor results. This was due to the class imbalance of the
+samples towards the "empty voxel" class. This happened for two reasons: first, by using voxelgrids instead of pointclouds
+we introduced lots of empty space in our samples that had to be encoded too; second, the sampling of the pointclouds may lead 
+to creating empty voxels that actually contain points.
+We tried to address this issue by using the weighted version of CrossEntropy loss.
+The weights were computed as as the inverse of the normalized sum of the class membership distribution probabilities 
+over all voxels in the training set samples.
+Even if this approach showed better performance, the class imbalance was too severe and the obtained results were not acceptable.
+This lead us to our final choice for the loss function, Dice Loss.
+This function allowed for fairly good model performance after training. This result is caused by the fact that Dice Loss considers 
+the intersection over the union (IoU) of the predicted and true positive regions, which makes it particularly sensible to small 
+and underrepresented classes.
+After each epoch, validation was performed to assess the current model performance and save it only if 
+it was the best one seen yet. 
+As for the Validation Loss we decided to use the probability of a voxel of a sample in the validation set being misclassified by the model.
+This value is computed by a function that confronts each true and computed label tensors in their one-hot encoded version 
+(argmax set to 1, others to 0) and returns the normalized count of pairs of different tensors.
