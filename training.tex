@@ -1,5 +1,12 @@
 \begin{figure*}[ht]
     \centering
+    \includegraphics[width=0.5\textwidth]{images/confusion_matrix.png}
+    \caption{Confusion matrix}
+    \label{fig:matrix}
+\end{figure*}
+
+\begin{figure*}[ht]
+    \centering
     \begin{subfigure}[b]{0.45\textwidth}
         \centering
         \includegraphics[width=\textwidth]{images/true.png}
@@ -22,7 +29,7 @@ to training, validation and test sets. In addition, samples from the training se
 The training phase was set such that for a determined number of epochs, the samples from the proper
 set were loaded in batches of 10, rotated by 90 degrees around the z-axis by a random number
 of times in the range 0-3 (to embedd robustness to such rotations in our model) and then given as 
-input to the model which performed the forward and backward propagation operations.
+input to the model, which performed the forward and backward propagation operations.
 For this last operation, a loss function is needed.
 We initially opted for the CrossEntropy loss, but we soon encountered poor results. This was due to the class imbalance of the
 samples towards the "empty voxel" class. This happened for two reasons: first, by using voxelgrids instead of pointclouds
@@ -37,8 +44,8 @@ This function allowed for fairly good model performance after training. This res
 the intersection over the union (IoU) of the predicted and true positive regions, which makes it particularly sensible to small 
 and underrepresented classes.
 After each epoch, validation was performed through the "ensamble" version of the model, introduced in the end of the last section,
-to assess the current model performance and save it only if it was the best one seen yet. 
-As for the Validation Loss we decided to use the probability of a voxel of a sample in the validation set being misclassified by the model.
+to assess the current model performance and save it only if it was the best one seen so far. 
+As for the Validation Loss we decided to use "one minus" the accuracy metric computed on the validation set samples.
 This value is computed by a function that confronts each true and computed label tensors in their one-hot encoded version 
 (argmax set to 1, others to 0) and returns the normalized count of pairs of different tensors.
 By training our network for 50 epochs, we achieved a validation loss value of 0.280, which
