@@ -4,15 +4,25 @@ To be able to achieve this, ad-hoc backpropagation functions were implemented.
 Given a pointcloud, these functions attribute directly to each point the predicted label of the
 corresponding voxel in the voxelized pointcloud (voxel grid).
 With these operations, it was possibile to build the confusion matrix shown in figure \ref{fig:matrix}.
-Using the data in this matrix, appropriate performance metrics were computed: Accuracy 0.691,
-Precision 0.425, Recall 0.328 and F1-score 0.370.  
+Using the data in this matrix, we were able to compute the following performance metrics over the 26 classes: 
+mean accuracy, mean precision, mean recall and consequently F1-score.
+Also, the average time needed by the model to perform a complete prediction (\textit{Tot. time}) was measured along the average partials relative to
+pointcloud voxelization (\textit{Vox. time}), model prediction on the voxelgrid (\textit{Pred. time}) and
+label backpropagation (\textit{Back. time}). The times have been taken over 30 random pointclouds predictions.
+These two sets of data are reported in table \ref{tab:metrics}.
 
-The first thing that can be noted is that only a few classes appear among test set pointclouds.
+From these results, the following observation can be made.
+Firstly, only a few classes appear among test set pointclouds.
 Secondly, it can be noted from the confusion matrix and guessed by the performance metrics, 
 that our model is able to correctly classify the most popular classes such as \textit{car},
 \textit{road}, \textit{sidewalk}, \textit{building} and \textit{vegetation} 
 but lacks in performance for the others. 
 However, the obtained results are still acceptable thanks to the great unbalance among point classes.
+Lastly, the total prediciton time of our model is particularly high,
+making it unsuitable for real-time applications. Although, it must be noted that the "true" prediciton time
+of \textit{VUE-net} is of only $13ms$ and the phases that generate the overhead in the total time
+are the voxelization and backpropagation ones. Thefore, for a possibile deployment of this model, only the 
+implementation of these two operations shall be changed.
 
 Using other Open3d functions, we were able to visualize the pointclouds with different colors depending
 on their labels. Figure \ref{fig:visual} shows one of the pointclouds with the

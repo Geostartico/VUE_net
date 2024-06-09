@@ -1,5 +1,8 @@
 \textit{VUE-net} was proven to be a model capable to perform semantic segmentation of 3D pointclouds
 with good performances. In fact, it was able to classify correctly an average of almost 70\%
 of the pointclouds points. Although, it still struggles to recognize unpopular classes.
-Therefore, to further improve \textit{VUE-net}, a way to
-make the network pay even more attention to these classes than the adopted one must be found.
+Also, the current version of the model is unsuitable for real-time applications but by lowering the implementation level
+of the voxelization and backpropagation phases, the network would be ready for deployment. 
+In conlusion, to further improve \textit{VUE-net}, a better way to
+make the network pay particular attention to the previously described classes must be found and the data transformation
+phases should be made more time efficient.

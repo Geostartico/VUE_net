@@ -1,8 +1,25 @@
 \begin{figure*}[ht]
     \centering
-    \includegraphics[width=0.5\textwidth]{images/confusion_matrix.png}
-    \caption{Confusion matrix}
-    \label{fig:matrix}
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/confusion_matrix.png}
+        \caption{Confusion matrix}
+        \label{fig:matrix}
+    \end{minipage}\hfill
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \begin{tabular}{r|c|c|c|l}
+            \multicolumn{5}{c}{\rule[-0.4cm]{0pt}{1.2cm}}  \\
+            \multicolumn{1}{c}{} & \multicolumn{3}{c}{\rule[-0.4cm]{0pt}{1cm} VUE-net} & \multicolumn{1}{c}{} \\ \cline{2-2} \cline{4-4}
+            $mAccuracy$  & \rule[-0.4cm]{0pt}{1cm} $0.691$ & & $2.197s$ & $Vox.\;time$   \\ \cline{2-2} \cline{4-4}
+            $mPrecision$ & \rule[-0.4cm]{0pt}{1cm} $0.425$ & & $0.011s$ & $Pred.\;time$  \\ \cline{2-2} \cline{4-4}
+            $mRecall$    & \rule[-0.4cm]{0pt}{1cm} $0.328$ & & $0.911s$ & $Back.\;time$  \\ \cline{2-2} \cline{4-4}
+            $F1-score$   & \rule[-0.4cm]{0pt}{1cm} $0.370$ & & $3.119s$ & $Tot.\;time$ \\ \cline{2-2} \cline{4-4}
+            \multicolumn{5}{c}{\rule[-0.4cm]{0pt}{1.2cm}}  \\
+        \end{tabular}
+        \captionof{table}{Model performance}
+        \label{tab:metrics}
+    \end{minipage}
 \end{figure*}
 
 \begin{figure*}[ht]
