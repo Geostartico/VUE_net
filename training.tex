@@ -11,10 +11,10 @@
         \begin{tabular}{r|c|c|c|l}
             \multicolumn{5}{c}{\rule[-0.4cm]{0pt}{1.2cm}}  \\
             \multicolumn{1}{c}{} & \multicolumn{3}{c}{\rule[-0.4cm]{0pt}{1cm} VUE-net} & \multicolumn{1}{c}{} \\ \cline{2-2} \cline{4-4}
-            $mAccuracy$  & \rule[-0.4cm]{0pt}{1cm} $0.691$ & & $2.197s$ & $Vox.\;time$   \\ \cline{2-2} \cline{4-4}
-            $mPrecision$ & \rule[-0.4cm]{0pt}{1cm} $0.425$ & & $0.011s$ & $Pred.\;time$  \\ \cline{2-2} \cline{4-4}
-            $mRecall$    & \rule[-0.4cm]{0pt}{1cm} $0.328$ & & $0.911s$ & $Back.\;time$  \\ \cline{2-2} \cline{4-4}
-            $F1-score$   & \rule[-0.4cm]{0pt}{1cm} $0.370$ & & $3.119s$ & $Tot.\;time$ \\ \cline{2-2} \cline{4-4}
+            $mAccuracy$  & \rule[-0.4cm]{0pt}{1cm} $0.692$ & & $2.197s$ & $Vox.\;time$   \\ \cline{2-2} \cline{4-4}
+            $mPrecision$ & \rule[-0.4cm]{0pt}{1cm} $0.427$ & & $0.011s$ & $Pred.\;time$  \\ \cline{2-2} \cline{4-4}
+            $mRecall$    & \rule[-0.4cm]{0pt}{1cm} $0.327$ & & $0.911s$ & $Back.\;time$  \\ \cline{2-2} \cline{4-4}
+            $F1-score$   & \rule[-0.4cm]{0pt}{1cm} $0.371$ & & $3.119s$ & $Tot.\;time$ \\ \cline{2-2} \cline{4-4}
             \multicolumn{5}{c}{\rule[-0.4cm]{0pt}{1.2cm}}  \\
         \end{tabular}
         \captionof{table}{Model performance}
@@ -65,5 +65,5 @@ to assess the current model performance and save it only if it was the best one 
 As for the Validation Loss we decided to use "one minus" the accuracy metric computed on the validation set samples.
 This value is computed by a function that confronts each true and computed label tensors in their one-hot encoded version 
 (argmax set to 1, others to 0) and returns the normalized count of pairs of different tensors.
-By training our network for 50 epochs, we achieved a validation loss value of 0.280, which
+By training our network for 50 epochs while relying on Adam optimizer with learning rate 0.001, we achieved a validation loss value of 0.280, which
 means that it correcly labels 72.0\% of the samples voxels in the validation set.
