@@ -16,7 +16,8 @@ Firstly, only a few classes appear among test set pointclouds.
 Secondly, it can be noted from the confusion matrix and guessed by the performance metrics, 
 that our model is able to correctly classify the most popular classes such as \textit{car},
 \textit{road}, \textit{sidewalk}, \textit{building} and \textit{vegetation} 
-but lacks in performance for the others. 
+but lacks in performance for the others, as they either appear a significantly low amount of times, or are lumped together in a voxel of another class. this is reflected in the recall value, as two out of the
+classes are never predicted (therefore they have zero recall) causing the mean metric to be much lower than the others.
 However, the obtained results are still acceptable thanks to the great unbalance among point classes.
 Lastly, the total prediciton time of our model is particularly high,
 making it unsuitable for real-time applications. Although, it must be noted that the "true" prediciton time
