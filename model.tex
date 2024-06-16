@@ -5,12 +5,12 @@
   \label{fig:model}
 \end{figure*}
 
-Because of the similarity of our task with image encoding, we decided to take inspiration for our model architecture
+Given the similarity of our task with image encoding, we decided to take inspiration for our model architecture
 from many different networks used for image segmentation. Our main inspiration was U-net \cite{Unet}.
 This network exploits an autoencorder-like architecture to obtain the segmented image.
 In particular, it uses convolution to extract features and maxpooling to downsample the image.
 Another U-net element that inspired us is the use of concatenation in order to provide
-residual connections between the "down" and "up" convolutions of the image. It must be noted that
+residual connections between the "down" and "up" convolutions. It must be noted that
 the authors of the paper used cropping in order to perform these operations, as the feature dimensions between layers do not exactly match. 
 It will be shown later that our architecture does not suffer from this issue since we decided to simplify 
 this process by having hidden states of equal size.
