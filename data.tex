@@ -7,13 +7,13 @@ a model based on pointclouds is particularly heavy and therefore unusable for re
 We instead decided to perform voxelization on the pointclouds and therefore our model's input is a grid of voxels.
 A voxel is a volumetric unit of space, so it can be considered as a pixel in 3D space.
 In order to transform the data we used the Open3D library api \cite{zhou2018open3d}. 
-We decided to use voxelgrids of size $32^3$ to have simple calculations, as it is a power of $2$ and at the same time a manageable number of voxels to process.
-The voxels are encoded into a $(32\times32\times32\times1)$ tensor, where the element $(X,Y,Z,0)$ is set to $1$ iff there's at least a point in the pointcloud that corresponds to the voxel with coordinates $(X,Y,Z)$, 0 otherwise.\par
+We decided to use voxelgrids of size $32^3$ to have simple calculations, as it is a power of $2$, and at the same time a manageable number of voxels to process.
+The voxels are encoded into a $(32\times32\times32\times1)$ tensor, where the element $(X,Y,Z,0)$ is set to $1$ if and only if there's at least a point in the pointcloud that corresponds to the voxel with coordinates $(X,Y,Z)$, or 0 otherwise.\par
 For the labels encoding we decided to use $(32\times32\times32\times\#classes)$ tensors which were generated as follows.
 For each point in the pointcloud, the value of the tensor 
 $labels(X,Y,Z,:)$ is updated as $labels(X,Y,Z,:)\textrm{+=}l$, where $(X,Y,Z)$ are the coordinates of the corresponding voxel and $l$ is the one-hot encoded version
 of the point's label.
-After iterating over all points labels, the obtained tensor was normalized along the appropriate dimension in order to obtain a probability distribution over the possibile classes. 
+After iterating over all points labels, the obtained tensor was normalized along the appropriate dimension in order to obtain a probability distribution over the possibile classes for each voxel. 
 As for the empty voxel, they were assigned to an additional (w.r.t. SemanticKITTI) fictitious class with total probability to 
 allow our model to predict a voxel as empty.
 This encoding was initially performed at run-time but it introduced a considerable over-head in the prediction time. 
